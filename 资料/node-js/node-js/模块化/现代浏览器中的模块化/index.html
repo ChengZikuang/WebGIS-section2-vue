@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 现代浏览器中模块化的规范基于es6的模块化系统 -->
+    <!-- 在引入外部js的时候 可以通过设置type=module来将其视为一个标准的模块 -->
+    <script src="./b.js" type="module"></script>
+    <script src="./a.js" type="module"></script>
+
+    <script type="module">
+      //引入刚才2个模块中的变量
+      //   import { name, fn } from "./a.js";
+      //   import { name as _name } from "./b.js";
+      //   fn();
+      import haha from "./a.js";
+      haha();
+    </script>
+  </body>
+</html>
