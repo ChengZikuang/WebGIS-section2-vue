@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 方法要加() -->
+    <div id="app">
+        <div>{{msg}}</div>
+        <div>reverse:{{reverse()}}</div>
+        <!-- {{msg.split('').reverse().join('')}} -->
+        <input type="text" v-model="firstName">
+        <input type="text" v-model="lastName">
+        <input type="text" v-model="c_fullName">
+        <br>
+        <!-- 自定义指令 -->
+        <span v-ccolor = "color" >{{firstName}}</span>
+        <!-- 需求：输入不同的颜色值，展示对应的颜色？-->
+        <span v-ccolor = "blue"> {{lastName}}</span>
+        <p>c_fullName:{{c_fullName}}</p>
+        <p>w_fullName:{{w_fullName}}</p>
+    </div>
+    <script src="../vue2.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: 'hello',
+                    firstName: "张",
+                    lastName: "三",
+                    w_fullName: "",
+                    color:"red",
+                }
+            },
+            methods: {
+                reverse() {
+                    return this.msg.split("").reverse().join('')
+                }
+            },
+            directives:{
+                //el表示绑定的DOM
+                ccolor(el,binding){
+                    el.style.color = binding.value
+                }
+            },
+
+            // 相当于形成缓存
+            computed: {
+                // reverse(){
+                //     return this.msg.split("").reverse().join('')
+                // }
+                c_fullName: {
+                    //默认getter
+                    get: function () {
+                        return this.firstName + this.lastName
+                    },
+                    //setter
+                    set: function (val) {
+                        this.firstName = val.slice(0, 1)
+                        this.lastName = val.slice(1)
+                    }
+                }
+            },
+            // watch处理异步
+            watch: {
+                firstName: {
+                    //lazy
+                    immediate: "ture",
+                    //deep
+                    handler(val) {
+                        setTimeout(() => {
+                            this.w_fullName = val + ' ' + this.lastName
+                        }, 1000);
+                    }
+                },
+                lastName: {
+                    immediate: "ture",
+                    handler(val) {
+                        setTimeout(() => {
+                            this.w_fullName = this.firstName + ' ' + val
+                        }, 1000);
+                    },
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
