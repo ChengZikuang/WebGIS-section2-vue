@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .color1{
+            color:red
+        }
+        .color2{
+            color: blue;
+        }
+        .bgc{
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 布尔值真假 -->
+        <h1 :class="{color1:flag,color2:!flag}">这是一个标题</h1>
+        <!-- class组 -->
+        <h2 :class="[color,bgc]">这是一个标题</h2>
+        <button @click="toggleColor">切换颜色</button>
+        <!-- style -->
+        <!-- :style="{fontSize:fz+'px'}" -->
+        <div :style="{fontSize:fz+'px'}" @click="fz++">div</div>
+        <!-- 数组写法：data中定义stylex -->
+    </div>
+    <script src="../vue2.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data() {
+                return {
+                   flag:true,
+                   bgc:"bgc",
+                   color:"color2",
+                   fz:30,
+                }
+            },
+            methods: {
+                toggleColor(){
+                    this.flag=!this.flag
+                }
+            },
+        })
+    </script>
+</body>
+</html>

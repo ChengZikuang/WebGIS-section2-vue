@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: skyblue;
+            height: 20vh;
+        }
+
+        .content {
+            float: left;
+            width: 60%;
+            height: 80vh;
+            background-color: gold;
+        }
+
+        .side {
+            float: right;
+            width: 40%;
+            height: 80vh;
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <div class="header"><h1>HEADER</h1></div>
+      <div class="content"><h1>CONTENT</h1></div>
+      <div class="side"><h1>SIDE</h1></div> -->
+      <!-- 3.使用组件 -->
+      <my-header></my-header>
+      <my-content></my-content>
+    </div>
+    <script src="../vue2.js"></script>
+    <script>
+        //1.定义组件
+        const MyHeader = Vue.extend({
+            name: "MyHeader",
+            template: `<div class="header"><h1>HEADER</h1></div>`,
+        })
+        //Vue.extend可省略
+        const MyContent = {
+            name: "MyContent",
+            template: `<div class="content"><h1>MyContent</h1></div>`,
+        }
+        //2.注册组件
+        //全局注册
+        Vue.component('my-header',MyHeader)
+        new Vue({
+            el: '#app',
+            //局部注册
+            components:{
+                'my-content':MyContent,
+            }
+        })
+    </script>
+</body>
+
+</html>

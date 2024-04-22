@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+        <h1 :style="{fontSize:fz+'px'}" @click="add">30</h1>
+        <button @click="$destroy()">销毁</button>
+    </div>
+    <script src="../vue2.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            fz: 30,
+            timer:null,
+          }
+        },
+        methods:{
+            add(){
+                this.fz++
+            }
+        },
+        mounted(){
+            timer = setInterval(() => {
+                if (this.fz >= 50) {
+                    return
+                }
+                this.fz++;
+            }, 200 );
+        },
+        beforeDestroy (){
+            console.log("before destroy");
+            clearInterval(timer);
+        }
+      })
+    </script>
+  </body>
+</html>
