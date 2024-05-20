@@ -2,78 +2,42 @@
   <div>
     <div class="bar">
       <div class="top">
-        <div class="title">ZH</div>
-        <input type="radio" value="BZMF" v-model="picked">BZMF
-        <input type="radio" value="XSTJ" v-model="picked">XSTJ
+        <div class="tilte">ZH</div>
+        <input type="radio" name="pay_type" value="10" v-model="picked">BZMF
+        <input type="radio" value="11" v-model="picked">XSTJ
       </div>
       <div class="bottom">
         <div class="title">YXZY</div>
-        <input type="radio" name="hero_type" value="0" v-model="picked">QB
-        <input type="radio" value="1" v-model="picked">TK
-        <input type="radio" value="2" v-model="picked">ZS
-        <input type="radio" value="3" v-model="picked">CK
-        <input type="radio" value="4" v-model="picked">FS
+        <input type="radio" value="1" v-model="picked">ZS
+        <input type="radio" value="2" v-model="picked">FS
+        <input type="radio" value="3" v-model="picked">TK
+        <input type="radio" value="4" v-model="picked">CK
         <input type="radio" value="5" v-model="picked">SS
+        <input type="radio" name="hero_type" value="6" v-model="picked">FZ
+        
         <div class="sctn">
           <input type="text" v-model="searchvalue">
         </div>
       </div>
     </div>
-    <div class="grid" v-for="render in fliterherolist">
-      <!-- <div class="hero">
-        <img src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/534/534.jpg" alt="">
-        <div class="cname">xxx</div>
-      </div><div class="hero">
-        <img src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/534/534.jpg" alt="">
-        <div class="cname">xxx</div>
-      </div><div class="hero">
-        <img src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/534/534.jpg" alt="">
-        <div class="cname">xxx</div>
-      </div><div class="hero">
-        <img src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/534/534.jpg" alt="">
-        <div class="cname">xxx</div>
-      </div><div class="hero">
-        <img src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/534/534.jpg" alt="">
-        <div class="cname">xxx</div>
-      </div><div class="hero">
-        <img src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/534/534.jpg" alt="">
-        <div class="cname">xxx</div>
-      </div><div class="hero">
-        <img src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/534/534.jpg" alt="">
-        <div class="cname">xxx</div>
-      </div><div class="hero">
-        <img src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/534/534.jpg" alt="">
-        <div class="cname">xxx</div>
-      </div><div class="hero">
-        <img src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/534/534.jpg" alt="">
-        <div class="cname">xxx</div>
-      </div> -->
+    <div class="grid">
+      <div class="hero" v-for="hero in fliterherolist">
+        <img :src="ReturnUrl(hero.ename)" alt="">
+        <div class="cname" >{{ hero.cname }}</div>
+      </div>
     </div>
-
-    <!-- log -->
-    <p>picked:{{ picked }}</p>
-    <p>search:{{ searchvalue }}</p>
   </div>
 </template>
 
 <script>
+
 export default {
   data: function () {
     return {
-      searchvalue:"",
+      searchvalue: "",
       picked: "",
       count: 0,
-      //  {
-      //   "ename": 105,
-      //   "cname": "廉颇",
-      //   "id_name": "lianpo",
-      //   "title": "正义爆轰",
-      //   "new_type": 0,
-      //   "hero_type": 3,
-      //   "skin_name": "正义爆轰|地狱岩魂",
-      //   "moss_id": 3627
-      // }
-      herolist:[{
+      herolist: [{
         "ename": 105,
         "cname": "廉颇",
         "id_name": "lianpo",
@@ -1326,34 +1290,54 @@ export default {
         "m_bl_link": "https://pvp.qq.com/ingame/all/tobe/newheros/1130hainuo.html",
         "moss_id": 6467
       }],
-      fliterherolist:[],
+      fliterherolist: [],
+      src:""
     }
   },
   methods: {
-    render() {
-      
+    ReturnUrl: function (val) {
+      return `https://game.gtimg.cn/images/yxzj/img201606/heroimg/${val}/${val}.jpg`
+    },
+
+  },
+  watch:{
+    picked :function () {
+      if (this.picked>=10) {
+        this.fliterherolist = this.herolist.filter((hero)=>hero.pay_type == this.picked  )
+      } else {
+        this.fliterherolist = this.herolist.filter((hero)=>hero.hero_type == this.picked ||hero.hero_type2 == this.picked )
+      }
+    },
+    searchvalue: function(){
+      this.fliterherolist = this.herolist.filter((hero)=>hero.cname.includes(this.searchvalue))
+      //改变style
     }
-  }
+  },
+  mounted: function () {
+    this.fliterherolist = this.herolist;
+  },
 };
 </script>
 
 <style>
 .bar {
   height: 100px;
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
 }
 
 .top,
 .bottom {
   height: 50px;
   line-height: 50px;
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
   display: flex;
 }
-.sctn{
+
+.sctn {
   /* position: relative; */
   float: right;
 }
+
 .title {
   height: 50px;
 }
