@@ -1,26 +1,36 @@
 <template>
     <div class="mediacontrol">
         <audio controls="controls" src = "./music.mp3" @timeupdate="getNowTime($event)"></audio>
-        <ul class="songlist">
-            <li v-for="item,index in list" :key="index" :class="{active:index===activeIndex}">{{ item.values }}</li>
+        <ul class="songlist" ref="songlistRef">
+            <li v-for="item,index in list" :key="index" :class="{active:index===activeIndex}" ref="liRefs">{{ item.values }}</li>
         </ul>
     </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, nextTick} from 'vue';
 
 const Data = ref([])
 const list = ref([])
 const activeIndex = ref(0)
+const songlistRef = ref(null);
+const liRefs = ref([]);
 /*  */
 //更新songlist视图
 function renderView(NowTime) {
     //确定播放行
     let line = list.value.findIndex((element) => element.times > NowTime );
-    activeIndex.value = line-1;
     //比较时间，确定哪一行歌词背景值改为白色
+    activeIndex.value = line-1;
     //将li内容向上移动，高亮歌词为视口中心
+    // 计算滚动到居中位置的偏移量
+    if (activeIndex.value >= 0 && songlistRef.value && songlistRef.value.clientHeight > 0) {
+        nextTick(() => {
+        let liHeight = liRefs.value[activeIndex.value]?.clientHeight;
+        let scrollOffset =
+        activeIndex.value * liHeight - (songlistRef.value.clientHeight / 2 - liHeight / 2);
+        songlistRef.value.scrollTop = scrollOffset;
+    })}
 }
 //获取当前时间
 function getNowTime(e) {
@@ -58,14 +68,22 @@ onMounted(() =>{
 
 <style lang="scss" scoped>
 .mediacontrol{
-    width: 500px;
-    background-color: black;
+    width: 400px;
     text-align: center;
-    li{
+    //最大高度
+    .songlist{
+        margin-top: 20px;
+        max-height: 400px;
+        overflow-y: hidden;
+        li{
         list-style: none;
     }
+    }
+    
+    
     .active{
-        color: white;
+        color: aqua;     
+        transform: scale(1.2);
     }
 }
 </style>
