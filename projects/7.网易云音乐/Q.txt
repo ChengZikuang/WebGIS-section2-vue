@@ -1,0 +1,7 @@
+复习精灵图如何实现定位的。
+:deep（）样式穿透在普通的CSS语法中也可以直接使用吗？
+vue2中router和route之间如何传参？push是传配置对象的形式吗？
+vue3中除useRoute后的.query还有什么？
+A:Proxy--Target--fullPath: (...)hash: (...)matched: (...)meta: (...)name: (...)params: (...)path: (...)query: Object redirectedFrom: (...)
+JS结构语法？
+复习arr.reduce()。
