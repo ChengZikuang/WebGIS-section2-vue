@@ -1,6 +1,6 @@
-import { ref } from 'vue'
+import { ref,computed } from 'vue'
 import { defineStore } from "pinia";
-import { getProducts } from "../api/api.js";
+import { getProducts,buyProducts } from "../api/api.js";
 import { ElMessage } from 'element-plus'
 
 
@@ -32,15 +32,37 @@ export const useProductListStore = defineStore('ProductList',() => {
         number:1,
       })
     } else {
-      console.log(1);
       element.number++;
     }
     shoppingcarList.value.sort((a,b)=> a.id - b.id)
+  }
+  //总价
+  const totalPrice = computed(() => {
+    return shoppingcarList.value.reduce((pre,cur) => {
+      return pre+cur.number*cur.price
+    },0)
+  })
+  //结算
+  const settlement = async () => {
+    if (await buyProducts()) {
+      ElMessage.success({
+        message:"结算成功",
+        duration:1000
+      })
+      shoppingcarList.value = []
+    } else {
+      ElMessage.error({
+        message:"结算失败",
+        duration:1000
+      })
+    }
   }
   return{
     productList,
     initProducts,
     shoppingcarList,
-    getshopList
+    getshopList,
+    totalPrice,
+    settlement
   }
 })

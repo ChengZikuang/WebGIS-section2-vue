@@ -5,6 +5,10 @@
         <el-table-column prop="price" label="Price" />
         <el-table-column prop="number" label="Number" />
     </el-table>
+    <div class="buttom" v-if="productStore.shoppingcarList.length">
+        <h2>商品总计:{{productStore.totalPrice}}</h2>
+        <el-button type="primary" @click="productStore.settlement">结算</el-button>
+    </div>
 </template>
 
 <script setup>
