@@ -41,6 +41,12 @@ export default {
           type: "value",
           show: false,
         },
+        grid: {
+          top: "100%",
+          left: "100%",
+          right: "100%",
+          buttom: "100%",
+        },
         tooltip:{},
         series: 
           {

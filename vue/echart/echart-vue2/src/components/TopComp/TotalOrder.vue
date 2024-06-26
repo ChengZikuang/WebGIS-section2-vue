@@ -1,7 +1,7 @@
 <template>
   <div class="TotalOrder">
     <CommonCard :title="title" :number="number">
-      <v-chart :option="option"/>
+      <v-chart :option="option" style="width: 100%;"/>
       <template v-slot:footer>
         <span>昨日销售额</span><span class="bold">￥ 12768</span>
       </template>
@@ -16,7 +16,21 @@ export default {
     return {
       title: "累计订单额",
       number: "13145",
-      option: {
+      option: {},
+    };
+  },
+  components: {
+    CommonCard,
+  },
+  methods:{
+    renderChart(){
+      this.option={
+        // grid: {
+        //   top: "100%",
+        //   left: "100%",
+        //   right: "100%",
+        //   buttom: "100%",
+        // },
         xAxis: {
           type: "category",
           show: false,
@@ -26,16 +40,12 @@ export default {
           type: "value",
           show: false,
         },
+       
         series: [
           {
             data: [123, 432, 541, 234, 576, 112, 789, 98],
             type: "line",
-            gap: {
-              top: 0,
-              left: 0,
-              right: 0,
-              buttom: 0,
-            },
+
             showSymbol: false,
             smooth: true,
             lineStyle: {
@@ -47,12 +57,12 @@ export default {
             },
           },
         ],
-      },
-    };
+      }
+    }
   },
-  components: {
-    CommonCard,
-  },
+  mounted(){
+    this.renderChart();
+  }
 };
 </script>
 

@@ -17,12 +17,11 @@ import TodayBuyers from "./TodayBuyers.vue";
 import TotalBuyers from "./TotalBuyers.vue";
 import { getReportData } from "@/api/index.js";
 
-
 export default {
   data() {
     return {
-      responsedata:{}
-    }
+      responsedata: {},
+    };
   },
   components: {
     TotalSale,
@@ -30,7 +29,7 @@ export default {
     TodayBuyers,
     TotalBuyers,
   },
-  async mounted(){
+  async mounted() {
     const res = await getReportData();
     this.responsedata = res.data;
     // console.log(res.data);
@@ -40,7 +39,7 @@ export default {
 
 <style lang="scss">
 .el-row {
-  background-color:#eee;
+  background-color: #eee;
 }
 span.increase {
   display: inline-block;

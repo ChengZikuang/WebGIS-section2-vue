@@ -1,7 +1,7 @@
 <template>
   <div class="TotalBuyers">
     <CommonCard :title="title" :number="number">
-        <v-chart :option="option" class="chart" />
+      <v-chart :option="option" class="chart" />
       <template v-slot:footer>
         <span>日同比</span><span class="bold">12.35%</span>
         <!-- 三角形 -->
@@ -21,24 +21,31 @@ export default {
       title: "累计用户数",
       number: "768923",
       option: {
+        grid: {
+          top: "100%",
+          left: "100%",
+          right: "100%",
+          buttom: "100%",
+        },
         xAxis: {
           type: "value",
-          show: false, 
+          show: false,
           boundaryGap: false,
         },
         yAxis: {
           type: "category",
-          show: false, 
+          show: false,
         },
+        
         series: [
           {
             type: "bar",
             data: [130],
             barWidth: 10,
             itemStyle: {
-                color: "green",
+              color: "green",
             },
-            stack:"TotalBuyers",
+            stack: "TotalBuyers",
             // markPoint: {
             //   data: [
             //     {
@@ -82,10 +89,10 @@ export default {
             data: [30],
             barWidth: 10,
             itemStyle: {
-                color: "gray",
+              color: "gray",
             },
-            stack:"TotalBuyers",
-          }
+            stack: "TotalBuyers",
+          },
         ],
       },
     };

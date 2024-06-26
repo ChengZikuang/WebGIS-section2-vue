@@ -39,6 +39,7 @@ export default {
   .chart {
     height: 50px;
     margin-top: 10px;
+    
   }
   .footer {
     margin-top: 10px;
