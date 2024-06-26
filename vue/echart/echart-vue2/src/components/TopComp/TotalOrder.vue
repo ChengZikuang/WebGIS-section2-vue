@@ -25,12 +25,16 @@ export default {
   methods:{
     renderChart(){
       this.option={
-        // grid: {
-        //   top: "100%",
-        //   left: "100%",
-        //   right: "100%",
-        //   buttom: "100%",
-        // },
+        grid: [
+          {
+            left: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            width: "100%",
+            height: "100%",
+          },
+        ],
         xAxis: {
           type: "category",
           show: false,

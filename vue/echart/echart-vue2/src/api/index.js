@@ -11,3 +11,7 @@ export const getSaleData = () => {
 export const getKeywordData = () => {
   return request.get("/keyworddata");
 };
+
+export const getCategorydata = () => {
+  return request.get("/categorydata");
+};

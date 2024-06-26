@@ -1,6 +1,19 @@
-import Vue from 'vue';
-import {Card,Row,Col,Divider,Menu,MenuItem,RadioGroup,RadioButton,DatePicker} from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import Vue from "vue";
+import {
+  Card,
+  Row,
+  Col,
+  Divider,
+  Menu,
+  MenuItem,
+  RadioGroup,
+  RadioButton,
+  DatePicker,
+  Table,
+  TableColumn,
+  Pagination,
+} from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
 
 Vue.use(Card);
 Vue.use(Row);
@@ -11,3 +24,6 @@ Vue.use(MenuItem);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);
 Vue.use(DatePicker);
+Vue.use(Table);
+Vue.use(TableColumn);
+Vue.use(Pagination);
