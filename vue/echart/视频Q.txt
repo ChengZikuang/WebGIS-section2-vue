@@ -1,3 +1,7 @@
 · import中@和../有什么区别吗？
 . 插槽?
 .echart中的grid实现很奇怪，然后自己的表在没有加grid时，上方总是缺一块?
+---
+。跨域问题复习？？
+。const geo = geo[city.name]，是如何实现通过name属性找到对应geodata的那一组数据的？
+。在series里面，为什么可以直接写value[2]，而不是data.value[2]?
