@@ -2,118 +2,127 @@
   <div class="weathercard">
     <!-- eltable4*4 -->
     <div class="table">
-        <div class="column">
-            <span>今日</span><span>07-04</span><span>阴</span><span>风力 1-3级</span>
-        </div>
-        <div class="column">
-            <span>今日</span><span>07-04</span><span>阴</span><span>风力 1-3级</span>
-        </div>
-        <div class="column">
-            <span>今日</span><span>07-04</span><span>阴</span><span>风力 1-3级</span>
-        </div>
-        <div class="column">
-            <span>今日</span><span>07-04</span><span>阴</span><span>风力 1-3级</span>
-        </div>
+      <div class="column">
+        <span>今日</span><span>07-04</span><span>阴</span
+        ><span>风力 1-3级</span>
+      </div>
+      <div class="column">
+        <span>今日</span><span>07-04</span><span>阴</span
+        ><span>风力 1-3级</span>
+      </div>
+      <div class="column">
+        <span>今日</span><span>07-04</span><span>阴</span
+        ><span>风力 1-3级</span>
+      </div>
+      <div class="column">
+        <span>今日</span><span>07-04</span><span>阴</span
+        ><span>风力 1-3级</span>
+      </div>
     </div>
     <!-- echart 双折线 -->
-     <v-chart :option="option" style="height: 1600px;"></v-chart>
+    <div>
+      <v-chart :option="option" style="height: 160px"></v-chart>
+    </div>
   </div>
 </template>
 
 <script setup>
-const option = {
-  title: {
-    text: 'Temperature Change in the Coming Week'
-  },
-  tooltip: {
-    trigger: 'axis'
-  },
-  legend: {},
-  toolbox: {
-    show: true,
-    feature: {
-      dataZoom: {
-        yAxisIndex: 'none'
-      },
-      dataView: { readOnly: false },
-      magicType: { type: ['line', 'bar'] },
-      restore: {},
-      saveAsImage: {}
-    }
-  },
+import { onMounted,ref } from 'vue'
+import { getAllWeather } from '@/utils/weatherinfo';
+const option = ref({});
+const formatterOption = () => {
+  //data.daytemp/nighttemp=>[1,2,3,4]
+  let daytemp = [35, 32, 28, 28];
+  let nighttemp = [26, 25, 23, 26];
+  option.value = {
+  grid: [
+    {
+      left: 20,
+      top: 20,
+      right: 20,
+      bottom: 0,
+    },
+  ],
   xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    type: "category",
+    show: false,
+    data: ["Today", "Tomrrow", "Weekday1", "Weekday2"],
   },
   yAxis: {
-    type: 'value',
-    axisLabel: {
-      formatter: '{value} °C'
-    }
+    type: "value",
+    show: false,
   },
   series: [
     {
-      name: 'Highest',
-      type: 'line',
-      data: [10, 11, 13, 11, 12, 12, 9],
-      markPoint: {
-        data: [
-          { type: 'max', name: 'Max' },
-          { type: 'min', name: 'Min' }
-        ]
+      name: "day",
+      type: "line",
+      data: daytemp,
+      label: {
+        show: true,
+        formatter(params) {
+          return "白" + params.value + "℃";
+        },
+        color: "white",
       },
-      markLine: {
-        data: [{ type: 'average', name: 'Avg' }]
-      }
     },
     {
-      name: 'Lowest',
-      type: 'line',
-      data: [1, -2, 2, 5, 3, 2, 0],
-      markPoint: {
-        data: [{ name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }]
+      name: "night",
+      type: "line",
+      data: nighttemp,
+      label: {
+        show: true,
+        position: "bottom",
+        formatter(params) {
+          return "晚" + params.value + "℃";
+        },
+        color: "white",
       },
-      markLine: {
-        data: [
-          { type: 'average', name: 'Avg' },
-          [
-            {
-              symbol: 'none',
-              x: '90%',
-              yAxis: 'max'
-            },
-            {
-              symbol: 'circle',
-              label: {
-                position: 'start',
-                formatter: 'Max'
-              },
-              type: 'max',
-              name: '最高点'
-            }
-          ]
-        ]
-      }
-    }
-  ]
-};
+    },
+  ],
+}
+}
+/* 
+{
+label: 今天，明天，周(2=>二)，周(3=>三)//7？
+date: 2024-07-09 => 07-09
+weather：dayweather
+wind: 风力{daypower}级
+temp:{
+daytemp:daytemp,
+nighttemp:nighttemp
+}
+}
+ */
+// const weatherinfo = ref([{},{},{},{}])
+const formatterInfo = (res) => {
+  console.log(res);
+  return res;
+}
+onMounted(async() => {
+  let res = await getAllWeather("南京市");
+  formatterInfo(res);
+  formatterOption();
+})
 </script>
 
 <style lang="scss" scoped>
-.weathercard{
-    // :deep(.el-col){
-    //     text-align: center;
-    // }
-    .table{
-        display: flex;
-        justify-content: space-between;
-        padding: 50px;
-      .column{
-        display: flex;
-        flex-direction: column;
-    }  
+.weathercard {
+  // :deep(.el-col){
+  //     text-align: center;
+  // }
+  background-color: rgb(0, 78, 113);
+  .table {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px;
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      span {
+        text-align: center;
+      }
     }
-    
+  }
 }
 </style>

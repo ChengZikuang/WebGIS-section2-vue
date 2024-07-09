@@ -8,35 +8,40 @@
     />
     <!-- citylist -->
     <div class="cityList">
-      <div class="cityinfo">
+      <div class="cityinfo" @mouseover="handle">
         <div class="info"><span>南京市</span> <span>26度</span></div>
-        <div class="btn" @mouseover="handle">
-          <button>查看</button><button>删除</button>
+        <div class="btn">
+          <button @click="search">查看</button><button>删除</button>
         </div>
       </div>
-      <div class="cityinfo">
+      <div class="cityinfo" @mouseover="handle">
         <div class="info"><span>武汉市</span> <span>26度</span></div>
-        <div class="btn" @mouseover="handle">
-          <button>查看</button><button>删除</button>
+        <div class="btn">
+          <button @click="search">查看</button><button>删除</button>
         </div>
       </div>
     </div>
     <!-- weather info -->
     <div class="weather">
-        <h3>近期天气</h3>
-        <WeatherCard/>
+      <h3>近期天气</h3>
+      <WeatherCard />
     </div>
   </div>
 </template>
 
 <script setup>
-import WeatherCard from "../components/WeatherCard.vue"
+import WeatherCard from "../components/WeatherCard.vue";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const input = ref("");
+const router = useRouter({});
+//跳转路由
 const search = () => {
-  console.log(input.value);
+  //根据cityname 获取 citycode,传入路由
+  router.push({ path: "/search", query: { cityname: input.value } });
 };
+//动画形式修改布局
 const handle = () => {
   console.log("mouseover");
 };
@@ -44,10 +49,13 @@ const handle = () => {
 
 <style lang="scss" scoped>
 .el-input {
-    margin-top: 30px;
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 .cityList {
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
   .cityinfo {
     display: flex;
     .info {
@@ -72,10 +80,10 @@ const handle = () => {
     }
   }
 }
-.weather{
-        h3{
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-    }
+.weather {
+  h3 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
 </style>

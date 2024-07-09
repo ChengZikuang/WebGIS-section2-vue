@@ -2,23 +2,46 @@
   <div class="top">
     <div class="ctn">
       <div class="left">
-        <div class="home">
-          <!-- :before -->
-          新中地天气
+        <router-link
+          to="/"
+          style="text-decoration: none; color: white; font-size: 2rem"
+        >
+          <div class="home">
+            <!-- :before -->
+            新中地天气
+          </div></router-link
+        >
+        <div class="ipinfo">
+          {{ weatherinfo.city }} 实时天气：{{ weatherinfo.weather }}
+          {{ weatherinfo.temperature }}℃ {{ weatherinfo.winddirection }}风{{weatherinfo.windpower}}级
         </div>
-        <div class="ipinfo">南京市 实时天气：晴 34℃ 西南风4级</div>
       </div>
       <div class="right">
-        <span>i</span>
-        <span v-if="isAdd">+</span>
+        <span class="iconfont infobtn"></span>
+        <span class="iconfont plusbtn" v-if="showPlusButton"></span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-const isAdd = ref(false);
+import { onMounted, ref, watch } from "vue";
+import { useRoute } from "vue-router";
+import { getIpWeather } from "@/utils/weatherinfo";
+
+const route = useRoute();
+const showPlusButton = ref(false);
+const weatherinfo = ref({});
+//实现仅在searchview中加载？
+watch(route, (newvalue) => {
+  showPlusButton.value = newvalue.path === "/search";
+});
+//根据city值检索 list中是否含有该list
+
+onMounted(async () => {
+  showPlusButton.value = route.path === "/search";
+  weatherinfo.value = await getIpWeather();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -41,6 +64,17 @@ const isAdd = ref(false);
     .right {
       display: flex;
       gap: 1rem;
+      & > span {
+        cursor: pointer;
+      }
+      .infobtn::before {
+        content: "\e557";
+        font-size: 1.5rem;
+      }
+      .plusbtn::before {
+        content: "\e55e";
+        font-size: 1.5rem;
+      }
     }
   }
 }
