@@ -27,6 +27,7 @@ export async function  getAllWeather (cityname) {
 //3.homeview/searchview getbaseweather
 export async function getNowWeather(cityname) {
   let {data} =await getAdcode(cityname)
+  console.log(data,"getnowweather data ");
   let res = await getBaseWeatherInfo(data.geocodes[0].adcode)
   return {
     // city:res.data.lives[0].city,

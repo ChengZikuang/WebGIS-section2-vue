@@ -1,13 +1,13 @@
 <template>
   <div class="ctn">
-    <!-- input -->
+    <!-- 输入框 -->
     <el-input
       v-model="input"
       placeholder="请输入城市名"
       @keyup.enter="search"
     />
-    <!-- citylist -->
-    <div class="cityList">
+    <!-- 城市列表 -->
+    <!-- <div class="cityList">
       <div class="cityinfo" @mouseover="handle">
         <div class="info"><span>南京市</span> <span>26度</span></div>
         <div class="btn">
@@ -20,31 +20,41 @@
           <button @click="search">查看</button><button>删除</button>
         </div>
       </div>
-    </div>
-    <!-- weather info -->
-    <div class="weather">
+    </div> -->
+    <!-- 天气信息 -->
+    <!-- //解决初始加载weatherinfo无值无法传递至weathercard -->
+    <div class="weather" v-if="weatherinfo.city">
       <h3>近期天气</h3>
-      <WeatherCard />
+      <WeatherCard :cityname="weatherinfo.city"/>
     </div>
   </div>
 </template>
 
 <script setup>
 import WeatherCard from "../components/WeatherCard.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { getIpWeather } from "@/utils/weatherinfo";
 
 const input = ref("");
-const router = useRouter({});
-//跳转路由
+const weatherinfo = ref({});
+const router = useRouter();
+
+
+// 跳转路由
 const search = () => {
-  //根据cityname 获取 citycode,传入路由
+  // 方式一：通过输入框输入 方式二：通过城市列表查看按钮
   router.push({ path: "/search", query: { cityname: input.value } });
 };
-//动画形式修改布局
+
+// 动画形式修改布局
 const handle = () => {
   console.log("mouseover");
 };
+
+onMounted(async () => {
+  weatherinfo.value = await getIpWeather();
+});
 </script>
 
 <style lang="scss" scoped>

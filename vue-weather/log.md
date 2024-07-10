@@ -73,7 +73,7 @@ web端使用html+css渲染，那么客户端使用的是什么技术栈？
 
 完成路由跳转时Top组件中要素的显示隐藏；
 
-- [ ] 待完成weathercard.vue的数据转换,视图更新为响应性
+- [x] 待完成weathercard.vue的数据转换,视图更新为响应性
 
 ### todo:
 
@@ -97,3 +97,12 @@ Homeview.vue中待完成
 stores中待完成
 
 - [ ] add,delete
+
+## 0710
+
+### todo
+
+weatherCard.vue
+
+- [ ] 今天明天固定替换
+- [ ] 接受传参

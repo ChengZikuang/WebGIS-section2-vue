@@ -8,7 +8,7 @@
         <span>当日气温是：{{cityinfo.temperature}}摄氏度</span><span>当日天气是：{{cityinfo.weather}}</span
         ><span>当日风向是：{{cityinfo.winddirection}}风 </span><span>当日风力是：{{cityinfo.windpower}}级</span>
       </div>
-      <WeatherCard />
+      <WeatherCard :cityname="cityname"/>
     </div>
   </div>
 </template>

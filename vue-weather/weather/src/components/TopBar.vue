@@ -32,7 +32,7 @@ import { getIpWeather } from "@/utils/weatherinfo";
 const route = useRoute();
 const showPlusButton = ref(false);
 const weatherinfo = ref({});
-//实现仅在searchview中加载？
+//实现仅在searchview中加载
 watch(route, (newvalue) => {
   showPlusButton.value = newvalue.path === "/search";
 });
