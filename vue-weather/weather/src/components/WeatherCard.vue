@@ -153,7 +153,7 @@ const formatterInfo = (res) => {
   
 };
 onMounted(async () => {
-  console.log(props.cityname,"weathercard cityname");
+  // console.log(props.cityname,"weathercard cityname");
   let res = await getAllWeather(props.cityname);
   formatterInfo(res);
   formatterOption(

@@ -62,9 +62,9 @@ web端使用html+css渲染，那么客户端使用的是什么技术栈？
 ### todo
 
 - [ ] autocomplete input 根据搜索值检索效果
-- [ ] weathercard 传入city值,组件内定义服务器请求结果处理
+- [x] weathercard 传入city值,组件内定义服务器请求结果处理
 - [x] topbar 阴影效果
-- [ ] store使用，history储存
+- [x] store使用，history储存
 - [ ] infobtn 消息弹窗效果
 
 ## 0709：
@@ -73,30 +73,30 @@ web端使用html+css渲染，那么客户端使用的是什么技术栈？
 
 完成路由跳转时Top组件中要素的显示隐藏；
 
-- [x] 待完成weathercard.vue的数据转换,视图更新为响应性
+- [x] 
 
 ### todo:
 
 searchview.vue中待完成
 
-- [ ] //cityname 1.input输入 2.citylist info 点击数据携带
+- [x] //cityname 1.input输入 2.citylist info 点击数据携带
 
 TopBar.vue中待完成
 
-- [ ] //点击加号加入localhistory事件，在search中判断+号是否显示
+- [x] //点击加号加入localhistory事件，在search中判断+号是否显示（在store中完成）
 - [ ] //btn hover 动画效果
 - [ ] i 点击事件遮罩message 弹窗效果=>element plus
 
 Homeview.vue中待完成
 
-- [ ] 点击“查看”“删除”功能实现（查看为跳转路由，query为该行城市名称；删除为store.list slice）
-- [ ] citylist v-for:store.list
+- [x] 点击“查看”“删除”功能实现（查看为跳转路由，query为该行城市名称；删除为store.list slice）
+- [x] citylist v-for:store.list
 - [ ] 搜索框的自动补充时，citylist区域将被隐藏
 - [ ] city list 滑块效果
 
 stores中待完成
 
-- [ ] add,delete
+- [x] add,delete（formatter、inlist）
 
 ## 0710
 
@@ -104,5 +104,22 @@ stores中待完成
 
 weatherCard.vue
 
-- [ ] 今天明天固定替换
-- [ ] 接受传参
+- [x] weathercard.vue的数据转换,视图更新为响应性
+- [x] 今天明天固定替换
+- [x] 接受传参（）
+
+## 0711
+
+借助AI实现：
+
+weathercard在homeview中初次加载时传递值为空问题 => 添加v-if。
+
+中间实现+按钮仅在searchview中加载 => watch路由变化，对比route.path是否等于search路径。
+
+组件css效果：
+
+- [ ] infobtn  遮罩效果
+- [ ] input 自动补充效果
+- [ ] citylist hover 更换布局效果
+- [ ] Topbar 字体及小图标
+

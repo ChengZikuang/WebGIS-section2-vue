@@ -13,12 +13,18 @@
         >
         <div class="ipinfo">
           {{ weatherinfo.city }} 实时天气：{{ weatherinfo.weather }}
-          {{ weatherinfo.temperature }}℃ {{ weatherinfo.winddirection }}风{{weatherinfo.windpower}}级
+          {{ weatherinfo.temperature }}℃ {{ weatherinfo.winddirection }}风{{
+            weatherinfo.windpower
+          }}级
         </div>
       </div>
       <div class="right">
         <span class="iconfont infobtn"></span>
-        <span class="iconfont plusbtn" v-if="showPlusButton"></span>
+        <span
+          class="iconfont plusbtn"
+          v-if="showPlusButton()"
+          @click="addList"
+        ></span>
       </div>
     </div>
   </div>
@@ -28,18 +34,32 @@
 import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { getIpWeather } from "@/utils/weatherinfo";
+import { useCityListStore } from "@/stores/citylist";
 
 const route = useRoute();
-const showPlusButton = ref(false);
+const cityliststore = useCityListStore();
+
 const weatherinfo = ref({});
 //实现仅在searchview中加载
-watch(route, (newvalue) => {
-  showPlusButton.value = newvalue.path === "/search";
-});
-//根据city值检索 list中是否含有该list
+// watch(route, (newvalue) => {
+//   showPlusButton.value =
+//     newvalue.path === "/search" && !cityliststore.inList(route.query.cityname);
+// });
+const addList = () => {
+  cityliststore.addlist(route.query.cityname);
+  // showPlusButton.value = false;
+};
 
+const showPlusButton =() => {
+  //仅在 path为search 且 localstorage中没找到cityname时，才显示+号
+  //&& !cityliststore.inList(route.query.cityname)
+  if (route.path ==="/search" && !cityliststore.inList(route.query.cityname)) {
+    return true
+  }else{
+    return false
+  }
+};
 onMounted(async () => {
-  showPlusButton.value = route.path === "/search";
   weatherinfo.value = await getIpWeather();
 });
 </script>

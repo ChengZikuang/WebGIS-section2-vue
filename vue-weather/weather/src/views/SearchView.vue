@@ -24,7 +24,6 @@ const cityname = route.query.cityname;
 const cityinfo = ref({})
 onMounted(async () => {
   cityinfo.value = await getNowWeather(cityname)
-  console.log(cityinfo.value);
 })
 </script>
 

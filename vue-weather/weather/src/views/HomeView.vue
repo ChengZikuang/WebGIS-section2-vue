@@ -4,28 +4,36 @@
     <el-input
       v-model="input"
       placeholder="请输入城市名"
-      @keyup.enter="search"
+      @keyup.enter="search(input)"
     />
+
     <!-- 城市列表 -->
-    <!-- <div class="cityList">
-      <div class="cityinfo" @mouseover="handle">
-        <div class="info"><span>南京市</span> <span>26度</span></div>
+
+    <div class="cityList" v-if="cityliststore.citylist.length > 0">
+      <div
+        class="cityinfo"
+        @mouseover="handle"
+        v-for="(item, index) in cityliststore.citylist"
+        :key="index"
+      >
+        <div class="info">
+          <span>{{ item.cityname }}</span> <span>{{ item.nowtemp }}度</span>
+        </div>
         <div class="btn">
-          <button @click="search">查看</button><button>删除</button>
+          <button @click="search(item.cityname)">查看</button
+          ><button @click="deletelist(item.cityname)">删除</button>
         </div>
       </div>
-      <div class="cityinfo" @mouseover="handle">
-        <div class="info"><span>武汉市</span> <span>26度</span></div>
-        <div class="btn">
-          <button @click="search">查看</button><button>删除</button>
-        </div>
-      </div>
-    </div> -->
+    </div>
+    <div v-else style="text-align: center">
+      暂时没有保存过城市天气信息，请查询后点击右上角"+"号保存。
+    </div>
+
     <!-- 天气信息 -->
     <!-- //解决初始加载weatherinfo无值无法传递至weathercard -->
-    <div class="weather" v-if="weatherinfo.city">
+    <div class="weather">
       <h3>近期天气</h3>
-      <WeatherCard :cityname="weatherinfo.city"/>
+      <WeatherCard :cityname="weatherinfo.city" v-if="weatherinfo.city" />
     </div>
   </div>
 </template>
@@ -35,16 +43,21 @@ import WeatherCard from "../components/WeatherCard.vue";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { getIpWeather } from "@/utils/weatherinfo";
+import { useCityListStore } from "@/stores/citylist";
 
 const input = ref("");
 const weatherinfo = ref({});
 const router = useRouter();
+const cityliststore = useCityListStore();
 
-
+const deletelist = (cityname) => {
+  cityliststore.deletelist(cityname);
+};
 // 跳转路由
-const search = () => {
+const search = (cityname) => {
   // 方式一：通过输入框输入 方式二：通过城市列表查看按钮
-  router.push({ path: "/search", query: { cityname: input.value } });
+  router.push({ path: "/search", query: { cityname: cityname } });
+  
 };
 
 // 动画形式修改布局
@@ -54,6 +67,7 @@ const handle = () => {
 
 onMounted(async () => {
   weatherinfo.value = await getIpWeather();
+  cityliststore.formattercitylist();
 });
 </script>
 
@@ -79,7 +93,6 @@ onMounted(async () => {
     .btn {
       display: flex;
       align-items: center;
-      //   display: none;
       button {
         border-style: none;
         margin-right: 5px;
