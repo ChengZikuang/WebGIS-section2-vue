@@ -2,10 +2,10 @@
 
 - [ ] Taiwind CSS  手册学习。
 
-- [ ] store在本项目里面有何作用？？？
+- [x] store在本项目里面有何作用？？？
 
 
-- [ ] 复习history 存储浏览器数据。
+- [x] 复习history 存储浏览器数据。
 
 
 项目分析：
@@ -61,11 +61,11 @@ web端使用html+css渲染，那么客户端使用的是什么技术栈？
 
 ### todo
 
-- [ ] autocomplete input 根据搜索值检索效果
+- [x] autocomplete input 根据搜索值检索效果
 - [x] weathercard 传入city值,组件内定义服务器请求结果处理
 - [x] topbar 阴影效果
 - [x] store使用，history储存
-- [ ] infobtn 消息弹窗效果
+- [x] infobtn 消息弹窗效果
 
 ## 0709：
 
@@ -84,15 +84,15 @@ searchview.vue中待完成
 TopBar.vue中待完成
 
 - [x] //点击加号加入localhistory事件，在search中判断+号是否显示（在store中完成）
-- [ ] //btn hover 动画效果
-- [ ] i 点击事件遮罩message 弹窗效果=>element plus
+- [x] //btn hover 动画效果
+- [x] i 点击事件遮罩message 弹窗效果=>element plus
 
 Homeview.vue中待完成
 
 - [x] 点击“查看”“删除”功能实现（查看为跳转路由，query为该行城市名称；删除为store.list slice）
 - [x] citylist v-for:store.list
-- [ ] 搜索框的自动补充时，citylist区域将被隐藏
-- [ ] city list 滑块效果
+- [x] 搜索框的自动补充时，citylist区域将被隐藏
+- [x] city list 滑块效果
 
 stores中待完成
 

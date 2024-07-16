@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { getIpWeather } from "@/utils/weatherinfo";
 import { useCityListStore } from "@/stores/citylist";
