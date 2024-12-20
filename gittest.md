@@ -12,7 +12,7 @@ GitHub上create repo
 
 ```bash
 git config
-git remote orgrin xxx.git
+git remote origin xxx.git
 ```
 
 初次使用
